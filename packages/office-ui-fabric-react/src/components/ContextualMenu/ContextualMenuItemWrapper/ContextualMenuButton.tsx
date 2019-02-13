@@ -1,12 +1,17 @@
 import * as React from 'react';
-import { buttonProperties, getNativeProps } from '../../../Utilities';
+import { buttonProperties, getNativeProps, shallowCompare } from '../../../Utilities';
 import { ContextualMenuItemWrapper } from './ContextualMenuItemWrapper';
 import { KeytipData } from '../../../KeytipData';
 import { getIsChecked, isItemDisabled, hasSubmenu } from '../../../utilities/contextualMenu/index';
 import { ContextualMenuItem } from '../ContextualMenuItem';
+import { IContextualMenuItemWrapperProps } from './ContextualMenuItemWrapper.types';
 
 export class ContextualMenuButton extends ContextualMenuItemWrapper {
   private _btn = React.createRef<HTMLButtonElement>();
+
+  public shouldComponentUpdate(newProps: IContextualMenuItemWrapperProps): boolean {
+    return !shallowCompare(newProps, this.props);
+  }
 
   public render() {
     const {
